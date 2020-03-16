@@ -4,19 +4,19 @@ source modules.sh
 
 while [ -n "$1" ]
 do
-		case "$1" in
-				-c | --clean)
-						shift 
+    case "$1" in
+        -c | --clean)
+            shift 
       erase_sd "$1"
       ;;
-				-l | --list)
-						lsblk
-						;;
-				-b | --burn)
+        -l | --list)
+            lsblk
+            ;;
+        -b | --burn)
       shift
       burn_sd "$1" "$2"
       shift
-			   ;;	
+         ;;  
     -d | --download)
       shift
       burn_and_download_image "$@"
@@ -30,7 +30,7 @@ do
       sdburner_help
       exit 1
       ;;
-		esac   
+    esac   
   shift
 done
 
