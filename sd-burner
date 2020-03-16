@@ -1,0 +1,36 @@
+#!/bin/bash
+
+source modules.sh
+
+while [ -n "$1" ]
+do
+		case "$1" in
+				-c | --clean)
+						shift 
+      erase_sd "$1"
+      ;;
+				-l | --list)
+						lsblk
+						;;
+				-b | --burn)
+      shift
+      burn_sd "$1" "$2"
+      shift
+			   ;;	
+    -d | --download)
+      shift
+      burn_and_download_image "$@"
+      shift
+      ;;
+    -h | --help)
+      sdburner_help
+      ;;
+    *)
+      echo "error: "$1" is not a valid input"
+      sdburner_help
+      exit 1
+      ;;
+		esac   
+  shift
+done
+
