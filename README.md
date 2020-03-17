@@ -1,7 +1,7 @@
 # SD Card Burner
  
 ## Introduction 
-SD card image burning utility is written in bash to support QA operation of treehouses.
+SD card image burning utility is written in bash to support QA operation of **treehouses** .
 
 ## Features
  - Burn and \*.img.gz image to and sd card or usb.
