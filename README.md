@@ -4,7 +4,7 @@
 SD card image burning utility is written in bash to support QA operation of **treehouses** .
 
 ## Features
- - Burn and \*.img.gz image to and sd card or usb.
+ - Burn and flash \*.img.gz image to and sd card or usb.
  - Download the latest **treehouses image** and burn it to an sd card.
  - Save current block device and compress to an image.
  - Send back up images to sftp server. 
