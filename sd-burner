@@ -1,4 +1,9 @@
 #!/bin/bash
+# Description:  Image burner for sd cards and usb device
+# Author: An Pham
+# Date:  Tue Mar 17 18:50:28 EDT 2020
+# ./sd-burner -d </dev/sda> 124
+# 
 
 source modules.sh
 
@@ -6,20 +11,21 @@ while [ -n "$1" ]
 do
     case "$1" in
         -c | --clean)
-            shift 
-      erase_sd "$1"
-      ;;
+          shift 
+										erase_sd "$1"
+										;;
         -l | --list)
-            lsblk
-            ;;
+										lsblk
+										;;
         -b | --burn)
-      shift
-      burn_sd "$1" "$2"
-      shift
+										shift
+          # burn_sd <device_name> <image_name>
+										burn_sd "$1" "$2"
+										shift
          ;;  
     -d | --download)
       shift
-      burn_and_download_image "$@"
+      download_and_burn_image "$1" "$2"
       shift
       ;;
     -h | --help)
