@@ -11,20 +11,21 @@ root_check () {
 }
 
 image_checker () {
-  if [ ! "${1#*.}" == ".tar.gz" ]; then
-    echo "Error: can't find the image"
+  if [ ! "${1#*.}" == ".img.gz" ]; then
+    echo "Error: can't find the image or the image type is invalid"
     exit 1 
   fi
 }
 
 erase_sd () {
+  echo "WARNING: Starting to flash the $1 device"
   dd if=/dev/zero of="$1" status=progress bs=1M  ; ec="$?"
-  [ "$ec" = 0 ] && echo "This is clean" || echo "Error: Disk failed to clean"
+  [ "$ec" = 0 ] && echo "Success: Disk has been clean" || echo "Error: Disk failed to clean"
 }
 
 burn_sd () {
   # burn_sd <sd-name> <image-name>
-  echo "Image name: $2"
+  echo "Image path: $(readlink -f $2)"
   echo "Disk name: $1"
   echo "Flash the $1 now"
 

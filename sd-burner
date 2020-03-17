@@ -25,6 +25,7 @@ do
          ;;  
     -d | --download)
       shift
+      # download_and_burn_image /dev/sda 124 
       download_and_burn_image "$1" "$2"
       shift
       ;;
