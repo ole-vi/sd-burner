@@ -12,16 +12,16 @@ do
     case "$1" in
         -c | --clean)
           shift 
-										erase_sd "$1"
-										;;
+                    erase_sd "$1"
+                    ;;
         -l | --list)
-										lsblk
-										;;
+                    lsblk
+                    ;;
         -b | --burn)
-										shift
+                    shift
           # burn_sd <device_name> <image_name>
-										burn_sd "$1" "$2"
-										shift
+                    burn_sd "$1" "$2"
+                    shift
          ;;  
     -d | --download)
       shift
