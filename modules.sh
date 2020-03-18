@@ -4,10 +4,10 @@
 # Date: Sat Mar 14 11:12:19 EDT 2020
 
 root_check () {
-		if [ "$(id -u)" != "0" ]; then
-					echo "This script must be run as root or with sudo" 1>&2
-					exit 1
-		fi
+    if [ "$(id -u)" != "0" ]; then
+          echo "This script must be run as root or with sudo" 1>&2
+          exit 1
+    fi
 }
 
 image_checker () {
@@ -60,10 +60,10 @@ save_image () {
 images_management () {
   echo "Usuage: $(basename $0) [-l|--list] [-c|--clean <device_name>] [-b|--burn <device_name> <image_name>] "
   echo ''
-		echo 'Where:'
-		echo '  -h,--help    show the help page'
+    echo 'Where:'
+    echo '  -h,--help    show the help page'
   echo '  -l,--list    show current saved images'
-		echo '  -c,--clean   clean the disk drive' 
+    echo '  -c,--clean   clean the disk drive' 
   echo "  -b,--burn    burn an image"
   echo "Example: "
   echo "  $(basename $0) -b /dev/sda treehouses.gz"
