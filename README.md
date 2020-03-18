@@ -13,7 +13,7 @@ SD card image burning utility is written in bash to support QA operation of **tr
 ```
   git clone https://github.com/ole-vi/sd-burner sd-burner
   chmod +x sd-burner
-  sudo sd-buner -h 
+  sudo sd-burner -h 
 ```
 
 ## Inspiration:
