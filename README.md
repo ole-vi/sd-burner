@@ -1,5 +1,6 @@
 # SD Card Burner
- 
+[![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/) 
+
 ## Introduction 
 SD card image burning utility is written in bash to support QA operation of **treehouses** .
 
