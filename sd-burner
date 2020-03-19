@@ -12,21 +12,27 @@ do
 		case "$1" in
 				-c | --clean)
 						shift 
-																erase_sd "$1"
-																;;
+							erase_sd "$1"
+							;;
 				-l | --list)
-																lsblk
-																;;
+		     lsblk
+		     ;;
 				-b | --burn)
-																shift
+					 shift
 						# burn_sd <device_name> <image_name>
-																burn_sd "$1" "$2"
-																shift
-					;;  
-		-d | --download)
+					 burn_sd "$1" "$2"
+						shift
+					 ;;  
+		  -d | --download)
       shift
       # download_and_burn_image /dev/sda 124 
       download_and_burn_image "$1" "$2"
+      shift
+      ;;
+    --clone)
+      shift
+      # save_image <image_name> <block_device>
+      save_image "$1" "$2"      
       shift
       ;;
     -h | --help)
