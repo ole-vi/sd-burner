@@ -24,7 +24,7 @@ erase_sd () {
 }
 
 burn_sd () {
-  # burn_sd <sd-name> <image-name>
+  # burn_sd <sD-name> <image-name>
   echo "Image path: $(readlink -f $2)"
   echo "Disk name: $1"
   echo "Flash the $1 now"
@@ -60,10 +60,10 @@ save_image () {
 images_management () {
   echo "Usuage: $(basename $0) [-l|--list] [-c|--clean <device_name>] [-b|--burn <device_name> <image_name>] "
   echo ''
-    echo 'Where:'
-    echo '  -h,--help    show the help page'
+  echo 'Where:'
+  echo '  -h,--help    show the help page'
   echo '  -l,--list    show current saved images'
-    echo '  -c,--clean   clean the disk drive' 
+  echo '  -c,--clean   clean the disk drive' 
   echo "  -b,--burn    burn an image"
   echo "Example: "
   echo "  $(basename $0) -b /dev/sda treehouses.gz"
