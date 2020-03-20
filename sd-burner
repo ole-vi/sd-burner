@@ -6,7 +6,6 @@
 # 
 
 source modules.sh
-source save_image.sh
 
 while [ -n "$1" ]
 do
@@ -35,7 +34,7 @@ do
 								;;
       --save)
         shift
-        save_image "$1" "$2"
+        image_save "$1" "$2"
         shift
         ;; 
 						*)
