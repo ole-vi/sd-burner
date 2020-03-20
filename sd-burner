@@ -9,40 +9,40 @@ source modules.sh
 
 while [ -n "$1" ]
 do
-    case "$1" in
-						-c | --clean)
-								shift 
-								erase_sd "$1"
-								;;
-						-l | --list)
-																		lsblk
-																		;;
-						-b | --burn)
-								shift
-								# burn_sd <device_name> <image_name>
-								burn_sd "$1" "$2"
-								shift
-				   	;;  
-						-d | --download)
-								shift
-								# download_and_burn_image /dev/sda 124 
-								download_and_burn_image "$1" "$2"
-								shift
-								;;
-						-h | --help)
-								sdburner_help
-								;;
-      --save)
-        shift
-        image_save "$1" "$2"
-        shift
-        ;; 
-						*)
-								echo "error: "$1" is not a valid input"
-								sdburner_help
-								exit 1
-								;;
-    esac   
+		case "$1" in
+				-c | --clean)
+						shift 
+						erase_sd "$1"
+						;;
+				-l | --list)
+																lsblk
+																;;
+				-b | --burn)
+						shift
+						# burn_sd <device_name> <image_name>
+						burn_sd "$1" "$2"
+						shift
+						;;  
+				-d | --download)
+						shift
+						# download_and_burn_image /dev/sda 124 
+						download_and_burn_image "$1" "$2"
+						shift
+						;;
+				-h | --help)
+						sdburner_help
+						;;
+				--save)
+						shift
+						image_save "$1" "$2"
+						shift
+						;; 
+				*)
+						echo "error: "$1" is not a valid input"
+						sdburner_help
+						exit 1
+						;;
+		esac   
   shift
 done
 

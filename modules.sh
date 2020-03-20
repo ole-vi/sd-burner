@@ -20,8 +20,9 @@ image_checker () {
 image_save () {
   local image_name="$1" 
   local block_device="$2"
+  root_check
 
-  dd if="$block_device" of="$image_name" | gzip -c > "$image_name.img.gz" ; ec="$?"
+  dd if="$block_device" conv=sync,noerror | gzip -c > "$image_name.img.gz" ; ec="$?"
   [ "$ec" = 0 ]  && echo "Sucess: image is backed up" || echo "Error: fail to back up the image"
 }
 
