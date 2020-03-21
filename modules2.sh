@@ -2,6 +2,7 @@
 # Name: treehouses image burner
 # Author: An Pham
 # Date: Sat Mar 14 11:12:19 EDT 2020
+#
 
 root_check () {
 		if [ "$(id -u)" != "0" ]; then
@@ -18,16 +19,21 @@ image_checker () {
 }
 
 image_save () {
-  local image_name="$1" 
+  local image_name="$(date +%Y-%m-%d)_$1" 
   local block_device="$2"
   root_check
-
-  dd if="$block_device" conv=sync,noerror | gzip -c > "$image_name.img.gz" ; ec="$?"
-  [ "$ec" = 0 ]  && echo "Sucess: image is backed up" || echo "Error: fail to back up the image"
+  if [ -n "$2" ];
+  then
+				dd if="$block_device" conv=sync | gzip -c > "$image_name.img.gz" ; ec="$?"
+				[ "$ec" -eq 0 ]  && echo "Sucess: image is backed up" || echo "Error: fail to back up the image"  
+    du -h "$image_name.img.gz"
+  else
+    echo "Error: fail to back up the image"
+  fi
 }
 
 erase_sd(){
-		echo "WARNING: Starting to flash the $1 device"
+		echo "WARNING: Starting to format the $1 device"
 		dd if=/dev/zero of="$1" status=progress bs=1M  ; ec="$?"
 		[ "$ec" = 0 ] && echo "Success: Disk has been clean" || echo "Error: Disk failed to clean"
 }
@@ -52,7 +58,7 @@ download_and_burn_image () {
 		curl "http://dev.ole.org/treehouse-$2.img.gz" | gunzip -c | sudo dd of="$1" status=progress ; ec="$?"
 		[ "$ec" = 0 ] && echo "Done Flashing new image" || echo "Flashing failed" 
 
-		umount "$2" ; ec="$?" ; sync 
+		umount "$1" ; ec="$?" ; sync 
 		[ "$ec" = 0 ] && echo "Successfully umounted" || echo "Error: fail to unmount the device"
 }
 
