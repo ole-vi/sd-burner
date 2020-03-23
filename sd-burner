@@ -6,7 +6,6 @@
 # 
 
 source modules2.sh
-
 while [ -n "$1" ]
 do
 		case "$1" in
@@ -32,8 +31,9 @@ do
 				-h | --help)
 						sdburner_help
 						;;
-				--save)
+				--save | -s)
 						shift
+      # image_save <image_name> <block_device>
       image_save "$1" "$2"
 						shift
 						;; 
