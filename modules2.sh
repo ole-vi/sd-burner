@@ -12,10 +12,10 @@
 
 ## Function ## 
 root_check () {
-		if [ "$(id -u)" != "0" ]; then
-				echo "This script must be run as root or with sudo" 1>&2
-				exit 1
-		fi
+    if [ "$(id -u)" != "0" ]; then
+        echo "This script must be run as root or with sudo" 1>&2
+        exit 1
+    fi
 }
 
 
@@ -32,10 +32,10 @@ create_loop_device () {
 }
 
 image_checker () {
-		if [ ! "${1#*.}" == ".img.gz" ]; then
-				echo "Error: can't find the image or the image type is invalid"
-				exit 1 
-		fi
+    if [ ! "${1#*.}" == ".img.gz" ]; then
+        echo "Error: can't find the image or the image type is invalid"
+        exit 1 
+    fi
 }
 
 image_save () {
@@ -45,8 +45,8 @@ image_save () {
   root_check
   if [ -n "$2" ];
   then
-				dd if="$block_device" conv=sync | gzip -c > "$image_name.img.gz" ; ec="$?"
-				[ "$ec" -eq 0 ]  && echo "Sucess: image is backed up" || echo "Error: fail to back up the image"  
+        dd if="$block_device" conv=sync | gzip -c > "$image_name.img.gz" ; ec="$?"
+        [ "$ec" -eq 0 ]  && echo "Sucess: image is backed up" || echo "Error: fail to back up the image"  
     du -h "$image_name.img.gz"
   else
     echo "Error: fail to back up the image"
@@ -54,48 +54,48 @@ image_save () {
 }
 
 erase_sd(){
-		echo "WARNING: Starting to format the $1 device"
-		dd if=/dev/zero of="$1" status=progress ; ec="$?"
-		[ "$ec" = 0 ] && echo "Success: Disk has been clean" || echo "Error: Disk failed to clean"
+    echo "WARNING: Starting to format the $1 device"
+    dd if=/dev/zero of="$1" status=progress ; ec="$?"
+    [ "$ec" = 0 ] && echo "Success: Disk has been clean" || echo "Error: Disk failed to clean"
 }
 
 burn_sd () {
   # burn_sd <image_path> <disk_path>
-		echo "Image path: $(readlink -f "$1")"
-		echo "Disk name: $2"
+    echo "Image path: $(readlink -f "$1")"
+    echo "Disk name: $2"
   echo ""
-		echo "Flashing  the $1 now ... "
+    echo "Flashing  the $1 now ... "
 
-		gunzip -c "$1" | sudo dd of="$2" status=progress ; ec="$?"
-		[ "$ec" = 0 ] && echo "Flashing completed!" || exit 1
+    gunzip -c "$1" | sudo dd of="$2" status=progress ; ec="$?"
+    [ "$ec" = 0 ] && echo "Flashing completed!" || exit 1
 }
 
 download_and_burn_image () {
-		root_check
-		# download_and_burn_image '/dev/sdc' '124'
-		echo "Downloading from http://dev.ole.org/treehouse-$2.img.gz"
-		echo "Image name: treehouses-$2"
-		echo "Disk name: $1"
-		echo "Flashing the $1 now ... "
+    root_check
+    # download_and_burn_image '/dev/sdc' '124'
+    echo "Downloading from http://dev.ole.org/treehouse-$2.img.gz"
+    echo "Image name: treehouses-$2"
+    echo "Disk name: $1"
+    echo "Flashing the $1 now ... "
 
-		curl "http://dev.ole.org/treehouse-$2.img.gz" | gunzip -c | sudo dd of="$1" status=progress ; ec="$?"
-		[ "$ec" = 0 ] && echo "Done Flashing new image" || echo "Flashing failed" 
+    curl "http://dev.ole.org/treehouse-$2.img.gz" | gunzip -c | sudo dd of="$1" status=progress ; ec="$?"
+    [ "$ec" = 0 ] && echo "Done Flashing new image" || echo "Flashing failed" 
 
-		umount "$1" ; ec="$?" ; sync 
-		[ "$ec" = 0 ] && echo "Successfully umounted" || echo "Error: fail to unmount the device"
+    umount "$1" ; ec="$?" ; sync 
+    [ "$ec" = 0 ] && echo "Successfully umounted" || echo "Error: fail to unmount the device"
 }
 
 sdburner_help () {
-		echo "Usuage: $(basename $0) [-l|--list] [-c|--clean <device_name>] [-b|--burn <device_name> <image_name>] "
-		echo ''
-		echo 'Where:'
-		echo '  -h,--help    show the help page'
-		echo '  -l,--list    show current saved images'
-		echo '  -c,--clean   clean the disk drive' 
-		echo "  -b,--burn    burn an image"
-		echo "Example: "
-		echo "  $(basename $0) -b /dev/sda treehouses.gz"
-		echo ''
+    echo "Usuage: $(basename $0) [-l|--list] [-c|--clean <device_name>] [-b|--burn <device_name> <image_name>] "
+    echo ''
+    echo 'Where:'
+    echo '  -h,--help    show the help page'
+    echo '  -l,--list    show current saved images'
+    echo '  -c,--clean   clean the disk drive' 
+    echo "  -b,--burn    burn an image"
+    echo "Example: "
+    echo "  $(basename $0) -b /dev/sda treehouses.gz"
+    echo ''
 }
 
 ## End of Function ## 

@@ -9,37 +9,37 @@ source modules2.sh
 
 while [ -n "$1" ]
 do
-		case "$1" in
+    case "$1" in
     --build-loop) ; shift ; create_loop_device ;;
-				-c | --clean) ;	shift ;	erase_sd "$1" ;;
-				-l | --list)  ; lsblk	;;
-				-b | --burn)
- 					shift
-						# burn_sd <device_name> <image_name>
-						burn_sd "$1" "$2"
-						shift
-						;;  
-				-d | --download)
-						shift
-						# download_and_burn_image /dev/sda 124 
-						download_and_burn_image "$1" "$2"
-						shift
-						;;
-				-h | --help)
-						sdburner_help
-						;;
-				--save | -s)
-						shift
+        -c | --clean) ;  shift ;  erase_sd "$1" ;;
+        -l | --list)  ; lsblk  ;;
+        -b | --burn)
+           shift
+            # burn_sd <device_name> <image_name>
+            burn_sd "$1" "$2"
+            shift
+            ;;  
+        -d | --download)
+            shift
+            # download_and_burn_image /dev/sda 124 
+            download_and_burn_image "$1" "$2"
+            shift
+            ;;
+        -h | --help)
+            sdburner_help
+            ;;
+        --save | -s)
+            shift
       # image_save <image_name> <block_device>
       image_save "$1" "$2"
-						shift
-						;; 
-				*)
-						echo "error: "$1" is not a valid input"
-						sdburner_help
-						exit 1
-						;;
-		esac   
+            shift
+            ;; 
+        *)
+            echo "error: "$1" is not a valid input"
+            sdburner_help
+            exit 1
+            ;;
+    esac   
   shift
 done
 
