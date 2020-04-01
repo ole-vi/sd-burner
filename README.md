@@ -1,5 +1,6 @@
 # SD Card Burner
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/) 
+[![Documentation Status](https://readthedocs.org/projects/sd-burner/badge/?version=latest)](https://sd-burner.readthedocs.io/en/latest/?badge=latest)
 
 ## Introduction 
 SD card image burning utility is written in bash to support QA operation of **treehouses** . Since the application is used by bash it only support Linux OS such as ubuntu, Debian, fedora. WARNING, be advised, DON'T flash the current running root partition to flash, you will loose your data. 
