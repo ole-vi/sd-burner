@@ -1,8 +1,23 @@
 #!/bin/bash
-# Name: treehouses image burner
-# Author: An Pham
 # Date: Sat Mar 14 11:12:19 EDT 2020
-#
+# Description: 
+# Module List:
+#  - Burn new image
+#  - Provide Image backup 
+#  - Erase the block device 
+
+# the function comes with bats file for automate testing
+
+
+create_loop_device () {
+  local file_size='32G'
+  local file_name='./dummy.img'
+  local next_loop_device="$(losetup -f)"
+
+  dd if=/dev/zero of="$file_name" bs="1M" count="$disk_size"
+  # check loop device here 
+  losetup "$next_loop_device" "$file_name"   
+}
 
 root_check () {
 		if [ "$(id -u)" != "0" ]; then
@@ -19,6 +34,7 @@ image_checker () {
 }
 
 image_save () {
+  # image_save <image_name> <block_device>
   local image_name="$(date +%Y-%m-%d)_$1" 
   local block_device="$2"
   root_check
@@ -34,16 +50,18 @@ image_save () {
 
 erase_sd(){
 		echo "WARNING: Starting to format the $1 device"
-		dd if=/dev/zero of="$1" status=progress bs=1M  ; ec="$?"
+		dd if=/dev/zero of="$1" status=progress ; ec="$?"
 		[ "$ec" = 0 ] && echo "Success: Disk has been clean" || echo "Error: Disk failed to clean"
 }
 
 burn_sd () {
-		echo "Image path: $(readlink -f "$2")"
-		echo "Disk name: $1"
-		echo "Flash the $1 now"
+  # burn_sd <image_path> <disk_path>
+		echo "Image path: $(readlink -f "$1")"
+		echo "Disk name: $2"
+  echo ""
+		echo "Flashing  the $1 now ... "
 
-		gunzip -c "$2" | sudo dd of="$1" status=progress ; ec="$?"
+		gunzip -c "$1" | sudo dd of="$2" status=progress ; ec="$?"
 		[ "$ec" = 0 ] && echo "Flashing completed!" || exit 1
 }
 
@@ -62,7 +80,7 @@ download_and_burn_image () {
 		[ "$ec" = 0 ] && echo "Successfully umounted" || echo "Error: fail to unmount the device"
 }
 
-images_management () {
+sdburner_help () {
 		echo "Usuage: $(basename $0) [-l|--list] [-c|--clean <device_name>] [-b|--burn <device_name> <image_name>] "
 		echo ''
 		echo 'Where:'
