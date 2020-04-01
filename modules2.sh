@@ -8,22 +8,27 @@
 
 # the function comes with bats file for automate testing
 
+## Global Variable Decalre ## 
 
-create_loop_device () {
-  local file_size='32G'
-  local file_name='./dummy.img'
-  local next_loop_device="$(losetup -f)"
-
-  dd if=/dev/zero of="$file_name" bs="1M" count="$disk_size"
-  # check loop device here 
-  losetup "$next_loop_device" "$file_name"   
-}
-
+## Function ## 
 root_check () {
 		if [ "$(id -u)" != "0" ]; then
 				echo "This script must be run as root or with sudo" 1>&2
 				exit 1
 		fi
+}
+
+
+
+create_loop_device () {
+  local file_size='16G'
+  local file_name='./dummy.img'
+  local next_loop_device="$(sudo losetup -f)"
+
+  root_check
+  fallocate -l "$file_size" "$file_name" && echo "Finished creating dummy file" 
+  # check loop device here 
+  losetup "$next_loop_device" "$file_name"  && echo 'Loop device successfully mounted' 
 }
 
 image_checker () {
@@ -93,3 +98,4 @@ sdburner_help () {
 		echo ''
 }
 
+## End of Function ## 

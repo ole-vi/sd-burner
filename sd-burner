@@ -3,23 +3,16 @@
 # Author: An Pham
 # Date:  Tue Mar 17 18:50:28 EDT 2020
 # ./sd-burner -d </dev/sda> 124
-# 
+# Note: Please create a loop device to test before use the script.
 
 source modules2.sh
+
 while [ -n "$1" ]
 do
 		case "$1" in
-    --build-loop) 
-      shift 
-      create_loop_device
-      ;;
-				-c | --clean)
-						shift 
-						erase_sd "$1"
-						;;
-				-l | --list)
- 					lsblk
- 					;;
+    --build-loop) ; shift ; create_loop_device ;;
+				-c | --clean) ;	shift ;	erase_sd "$1" ;;
+				-l | --list)  ; lsblk	;;
 				-b | --burn)
  					shift
 						# burn_sd <device_name> <image_name>
